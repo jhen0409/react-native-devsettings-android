@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.devsupport.DevInternalSettings;
 import com.facebook.react.devsupport.DevSupportManagerImpl;
@@ -23,16 +24,19 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "DevSettings";
     private ReactApplicationContext reactContext = null;
     private ReactInstanceManager instanceManager = null;
+    private ReactNativeHost rnHost = null;
     private DevSupportManagerImpl devManager = null;
 
     public DevSettingsModule(ReactApplicationContext context) {
         super(context);
 
         reactContext = context;
-        instanceManager = ((ReactApplication) context.getApplicationContext())
-          .getReactNativeHost()
-          .getReactInstanceManager();
-        devManager = ((DevSupportManagerImpl) instanceManager.getDevSupportManager());
+        rnHost = ((ReactApplication) context.getApplicationContext())
+          .getReactNativeHost();
+        instanceManager = rnHost.getReactInstanceManager();
+        if (rnHost.getUseDeveloperSupport()) {
+            devManager = ((DevSupportManagerImpl) instanceManager.getDevSupportManager());
+        }
     }
 
     @Override
@@ -52,7 +56,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void reload(Promise promise) {
-        promise.resolve(null);
+        promise.resolve(null);  // Early resolve to avoid crash
+        if (!rnHost.getUseDeveloperSupport()) {
+            return;
+        }
         new Handler().postDelayed(
             new Runnable() {
                 public void run() {
@@ -64,6 +71,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void toggleElementInspector(Promise promise) {
+        if (!rnHost.getUseDeveloperSupport()) {
+            promise.resolve(null);
+            return;
+        }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setElementInspectorEnabled(!mDevSettings.isElementInspectorEnabled());
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -73,6 +84,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setLiveReloadEnabled(final boolean enabled, Promise promise) {
+        if (!rnHost.getUseDeveloperSupport()) {
+            promise.resolve(null);
+            return;
+        }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setReloadOnJSChangeEnabled(!mDevSettings.isReloadOnJSChangeEnabled());
         promise.resolve(null);
@@ -80,6 +95,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setHotLoadingEnabled(final boolean enabled, Promise promise) {
+        if (!rnHost.getUseDeveloperSupport()) {
+            promise.resolve(null);
+            return;
+        }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setHotModuleReplacementEnabled(!mDevSettings.isHotModuleReplacementEnabled());
         promise.resolve(null);
@@ -88,7 +107,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setIsDebuggingRemotely(final boolean enabled, Promise promise) {
-        promise.resolve(null);
+        promise.resolve(null);  // Early resolve to avoid crash
+        if (!rnHost.getUseDeveloperSupport()) {
+            return;
+        }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setRemoteJSDebugEnabled(enabled);
         new Handler().postDelayed(
@@ -102,6 +124,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void show(Promise promise) {
+        if (!rnHost.getUseDeveloperSupport()) {
+            promise.resolve(null);
+            return;
+        }
         devManager.showDevOptionsDialog();
         promise.resolve(null);
     }

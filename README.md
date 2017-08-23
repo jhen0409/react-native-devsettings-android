@@ -13,6 +13,8 @@ $ react-native link react-native-devsettings-android
 
 ## Usage
 
+These methods is only for debug mode, doesn't effect in release mode.
+
 ```js
 import { NativeModules } from 'react-native'
 
