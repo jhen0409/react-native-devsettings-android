@@ -8,7 +8,7 @@
   "dependencies": {
     "react": "16.0.0-alpha.12",
     "react-native": "0.47.2",
-    "react-native-devsettings-android": "file:.."
+    "react-native-devsettings-android": "^0.1.0"
   },
   "devDependencies": {
     "babel-preset-react-native": "3.0.1"
