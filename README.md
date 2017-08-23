@@ -13,7 +13,7 @@ $ react-native link react-native-devsettings-android
 
 ## Usage
 
-These methods is only for debug mode, doesn't effect in release mode.
+These methods are only for debug mode, doesn't effect in release mode.
 
 ```js
 import { NativeModules } from 'react-native'
@@ -39,3 +39,7 @@ NativeModules.DevSettings.setProfilingEnabled(bool)
 ## Related projects
 
 - [react-native-debugger](https://github.com/jhen0409/react-native-debugger) used `DevSettings` to provide [dev menu](https://github.com/jhen0409/react-native-debugger/blob/master/docs/debugger-integration.md#developer-menu-integration)
+
+## License
+
+[MIT](LICENSE.md)
