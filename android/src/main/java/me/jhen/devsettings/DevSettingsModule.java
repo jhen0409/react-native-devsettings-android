@@ -25,6 +25,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     private ReactInstanceManager instanceManager = null;
     private ReactNativeHost rnHost = null;
     private DevSupportManagerImpl devManager = null;
+    private Boolean useDeveloperSupport = false;
 
     public DevSettingsModule(ReactApplicationContext context) {
         super(context);
@@ -33,7 +34,8 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
         rnHost = ((ReactApplication) context.getApplicationContext())
           .getReactNativeHost();
         instanceManager = rnHost.getReactInstanceManager();
-        if (rnHost.getUseDeveloperSupport()) {
+        useDeveloperSupport = rnHost.getUseDeveloperSupport();
+        if (useDeveloperSupport) {
             devManager = ((DevSupportManagerImpl) instanceManager.getDevSupportManager());
         }
     }
@@ -55,9 +57,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void reload() {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         new Handler().postDelayed(
             new Runnable() {
                 public void run() {
@@ -69,9 +69,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void toggleElementInspector() {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setElementInspectorEnabled(!mDevSettings.isElementInspectorEnabled());
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -80,18 +78,14 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setLiveReloadEnabled(final boolean enabled) {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setReloadOnJSChangeEnabled(!mDevSettings.isReloadOnJSChangeEnabled());
     }
 
     @ReactMethod
     public void setHotLoadingEnabled(final boolean enabled) {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setHotModuleReplacementEnabled(!mDevSettings.isHotModuleReplacementEnabled());
         handleReloadJS();
@@ -99,9 +93,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setIsDebuggingRemotely(final boolean enabled) {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setRemoteJSDebugEnabled(enabled);
         new Handler().postDelayed(
@@ -115,9 +107,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void show() {
-        if (!rnHost.getUseDeveloperSupport()) {
-            return;
-        }
+        if (!useDeveloperSupport) return;
         devManager.showDevOptionsDialog();
     }
 }
