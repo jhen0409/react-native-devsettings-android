@@ -13,7 +13,6 @@ import com.facebook.react.devsupport.DevSupportManagerImpl;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
@@ -55,8 +54,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void reload(Promise promise) {
-        promise.resolve(null);  // Early resolve to avoid crash
+    public void reload() {
         if (!rnHost.getUseDeveloperSupport()) {
             return;
         }
@@ -70,44 +68,37 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void toggleElementInspector(Promise promise) {
+    public void toggleElementInspector() {
         if (!rnHost.getUseDeveloperSupport()) {
-            promise.resolve(null);
             return;
         }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setElementInspectorEnabled(!mDevSettings.isElementInspectorEnabled());
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit("toggleElementInspector", null);
-        promise.resolve(null);
     }
 
     @ReactMethod
-    public void setLiveReloadEnabled(final boolean enabled, Promise promise) {
+    public void setLiveReloadEnabled(final boolean enabled) {
         if (!rnHost.getUseDeveloperSupport()) {
-            promise.resolve(null);
             return;
         }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setReloadOnJSChangeEnabled(!mDevSettings.isReloadOnJSChangeEnabled());
-        promise.resolve(null);
     }
 
     @ReactMethod
-    public void setHotLoadingEnabled(final boolean enabled, Promise promise) {
+    public void setHotLoadingEnabled(final boolean enabled) {
         if (!rnHost.getUseDeveloperSupport()) {
-            promise.resolve(null);
             return;
         }
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setHotModuleReplacementEnabled(!mDevSettings.isHotModuleReplacementEnabled());
-        promise.resolve(null);
         handleReloadJS();
     }
 
     @ReactMethod
-    public void setIsDebuggingRemotely(final boolean enabled, Promise promise) {
-        promise.resolve(null);  // Early resolve to avoid crash
+    public void setIsDebuggingRemotely(final boolean enabled) {
         if (!rnHost.getUseDeveloperSupport()) {
             return;
         }
@@ -123,12 +114,10 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void show(Promise promise) {
+    public void show() {
         if (!rnHost.getUseDeveloperSupport()) {
-            promise.resolve(null);
             return;
         }
         devManager.showDevOptionsDialog();
-        promise.resolve(null);
     }
 }
