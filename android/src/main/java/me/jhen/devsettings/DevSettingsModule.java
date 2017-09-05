@@ -1,10 +1,8 @@
 package me.jhen.devsettings;
 
-import android.support.annotation.Nullable;
 import android.app.Activity;
 import android.os.Handler;
 
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactInstanceManager;
@@ -13,11 +11,7 @@ import com.facebook.react.devsupport.DevSupportManagerImpl;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DevSettingsModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "DevSettings";
