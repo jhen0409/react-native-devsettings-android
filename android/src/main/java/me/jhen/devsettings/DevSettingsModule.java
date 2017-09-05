@@ -87,16 +87,18 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     public void setHotLoadingEnabled(final boolean enabled) {
         if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
-        mDevSettings.setHotModuleReplacementEnabled(!mDevSettings.isHotModuleReplacementEnabled());
-        handleReloadJS();
+        Boolean needReload = enabled != mDevSettings.isHotModuleReplacementEnabled();
+        mDevSettings.setHotModuleReplacementEnabled(enabled);
+        if (needReload) { reload(); }
     }
 
     @ReactMethod
     public void setIsDebuggingRemotely(final boolean enabled) {
         if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
+        Boolean needReload = enabled != mDevSettings.isRemoteJSDebugEnabled();
         mDevSettings.setRemoteJSDebugEnabled(enabled);
-        reload();
+        if (needReload) { reload(); }
     }
 
     @ReactMethod
