@@ -108,6 +108,12 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void show() {
         if (!useDeveloperSupport) return;
-        devManager.showDevOptionsDialog();
+        Activity activity = getCurrentActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                devManager.showDevOptionsDialog();
+            }
+        });
     }
 }
