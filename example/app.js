@@ -8,7 +8,7 @@ import {
   NativeModules,
 } from 'react-native'
 
-const { DevSettings } = NativeModules
+const { DevSettings, DevMenu } = NativeModules
 
 export default class example extends Component {
   renderDivider() {
@@ -55,6 +55,14 @@ export default class example extends Component {
           title="Turn off hot reloading"
           color="red"
           onPress={() => DevSettings.setHotLoadingEnabled(false)}
+        />
+        {this.renderDivider()}
+        <Text>Extra method (iOS: from DevMenu)</Text>
+        {this.renderDivider()}
+        <Button
+          title="Show Developer Menu"
+          onPress={() =>
+            DevSettings.show ? DevSettings.show() : DevMenu.show()}
         />
       </View>
     )
