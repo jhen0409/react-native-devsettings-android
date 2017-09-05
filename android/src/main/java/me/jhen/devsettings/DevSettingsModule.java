@@ -96,13 +96,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
         if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
         mDevSettings.setRemoteJSDebugEnabled(enabled);
-        new Handler().postDelayed(
-            new Runnable() {
-                public void run() {
-                    handleReloadJS();
-                }
-            },
-        50);
+        reload();
     }
 
     @ReactMethod
