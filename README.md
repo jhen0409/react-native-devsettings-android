@@ -38,7 +38,7 @@ NativeModules.DevSettings.setProfilingEnabled(bool)
 
 ## Related projects
 
-- [react-native-debugger](https://github.com/jhen0409/react-native-debugger) used `DevSettings` to provide [dev menu](https://github.com/jhen0409/react-native-debugger/blob/master/docs/debugger-integration.md#developer-menu-integration)
+- [react-native-debugger](https://github.com/jhen0409/react-native-debugger) used `DevSettings` to provide [dev menu](https://github.com/jhen0409/react-native-debugger/blob/master/docs/shortcut-references.md#context-menu)
 
 ## License
 
