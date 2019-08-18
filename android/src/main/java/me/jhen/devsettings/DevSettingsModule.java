@@ -106,4 +106,9 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+    @Override
+    public boolean canOverrideExistingModule() {
+      return false;
+    }
 }
