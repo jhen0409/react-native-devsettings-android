@@ -71,13 +71,6 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setLiveReloadEnabled(final boolean enabled) {
-        if (!useDeveloperSupport) return;
-        DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
-        mDevSettings.setReloadOnJSChangeEnabled(!mDevSettings.isReloadOnJSChangeEnabled());
-    }
-
-    @ReactMethod
     public void setHotLoadingEnabled(final boolean enabled) {
         if (!useDeveloperSupport) return;
         DevInternalSettings mDevSettings = (DevInternalSettings) devManager.getDevSettings();
