@@ -7,7 +7,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.devsupport.DevInternalSettings;
-import com.facebook.react.devsupport.DevSupportManagerImpl;
+import com.facebook.react.devsupport.interfaces.DevSupportManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -18,7 +18,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
     private ReactApplicationContext reactContext = null;
     private ReactInstanceManager instanceManager = null;
     private ReactNativeHost rnHost = null;
-    private DevSupportManagerImpl devManager = null;
+    private DevSupportManager devManager = null;
     private Boolean useDeveloperSupport = false;
 
     public DevSettingsModule(ReactApplicationContext context) {
@@ -30,7 +30,7 @@ public class DevSettingsModule extends ReactContextBaseJavaModule {
         instanceManager = rnHost.getReactInstanceManager();
         useDeveloperSupport = rnHost.getUseDeveloperSupport();
         if (useDeveloperSupport) {
-            devManager = ((DevSupportManagerImpl) instanceManager.getDevSupportManager());
+            devManager = ((DevSupportManager) instanceManager.getDevSupportManager());
         }
     }
 
