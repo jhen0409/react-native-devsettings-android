@@ -2,7 +2,7 @@
 
 The Android implementation for iOS [`NativeModules.DevSettings`](https://github.com/facebook/react-native/blob/6ad7e8281b37ee2ce6425363c0b17420d056807a/React/Modules/RCTDevSettings.mm#L231-L330) of React Native.
 
-__*NOTE*__ The features will try PR to react-native, currently this package will help to used for most RN versions.
+__*DEPRECATED NOTE*__ The DevSettings implementation for Android have been landed in React Native v0.60.
 
 ## Installation
 
